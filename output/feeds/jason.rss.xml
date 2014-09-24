@@ -1,5 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jason Blog</title><link>/</link><description></description><atom:link href="/feeds/jason.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 22 Aug 2014 16:08:00 +0200</lastBuildDate><item><title>你好，世界！</title><link>/ni-hao-shi-jie.html</link><description>&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/^&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jason Blog</title><link>/</link><description></description><atom:link href="/feeds/jason.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 25 Sep 2014 02:49:09 +0200</lastBuildDate><item><title>helper script</title><link>/helper-script.html</link><description>&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class="c"&gt;# Author: Hsin-Yi Chen &amp;lt;ossug.hychen AT gmail.com&amp;gt;&lt;/span&gt;
+&lt;span class="nv"&gt;ERRMSG_WRONGDIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;You are not under octopress directory&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt; ! -f _config.yml &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;ERRMSG_WRONGDIR&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;exit&lt;/span&gt;
+
+&lt;span class="nv"&gt;BLOGDIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;PWD&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+
+deploy&lt;span class="o"&gt;(){&lt;/span&gt;
+    git checkout &lt;span class="nb"&gt;source&lt;/span&gt;
+&lt;span class="nb"&gt;    &lt;/span&gt;git push origin &lt;span class="nb"&gt;source&lt;/span&gt;
+&lt;span class="nb"&gt;    &lt;/span&gt;rake generate
+    rake deploy
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+update_octopress&lt;span class="o"&gt;(){&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;upgrading octopress source&amp;#39;&lt;/span&gt;
+    git pull octopress master     &lt;span class="c"&gt;# Get the latest Octopress&lt;/span&gt;
+    bundle install                &lt;span class="c"&gt;# Keep gems updated&lt;/span&gt;
+    rake update_source            &lt;span class="c"&gt;# update the template&amp;#39;s source&lt;/span&gt;
+    rake update_style             &lt;span class="c"&gt;# update the template&amp;#39;s style&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+preview&lt;span class="o"&gt;(){&lt;/span&gt;
+    rake preview &amp;amp;
+    sleep 1
+    sensible-browser 127.0.0.1:4000
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+upgrade&lt;span class="o"&gt;(){&lt;/span&gt;
+    update_octopress
+    deploy
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="c"&gt;# start to write new post&lt;/span&gt;
+&lt;span class="c"&gt;# @param: post title&lt;/span&gt;
+post&lt;span class="o"&gt;(){&lt;/span&gt;
+    &lt;span class="nb"&gt;local &lt;/span&gt;&lt;span class="nv"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;requires title&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+    _new_item post &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;title&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="c"&gt;# start to write new page&lt;/span&gt;
+&lt;span class="c"&gt;# @param: page title&lt;/span&gt;
+page&lt;span class="o"&gt;(){&lt;/span&gt;
+    _new_item page &lt;span class="nv"&gt;$1&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+_new_item&lt;span class="o"&gt;(){&lt;/span&gt;
+    &lt;span class="nb"&gt;local &lt;/span&gt;&lt;span class="nv"&gt;tmpfile&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;mktemp&lt;span class="sb"&gt;`&lt;/span&gt;
+    &lt;span class="nb"&gt;local &lt;/span&gt;&lt;span class="nv"&gt;item_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;requires item name&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+    &lt;span class="nb"&gt;local &lt;/span&gt;&lt;span class="nv"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;2&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;requires title&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+    rake new_&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;item_name&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;\&amp;quot;${title}\&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; | tee &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;tmpfile&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+    &lt;span class="nb"&gt;local &lt;/span&gt;&lt;span class="nv"&gt;file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;cat &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;tmpfile&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; | awk -F: &lt;span class="s1"&gt;&amp;#39;{print $2}&amp;#39;&lt;/span&gt; | sed -e &lt;span class="s1"&gt;&amp;#39;s/ //&amp;#39;&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+    sensible-editor &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;BLOGDIR&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;/&lt;span class="nv"&gt;$file&lt;/span&gt;
+    rm &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;tmpfile&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+    &lt;span class="c"&gt;# return file name&lt;/span&gt;
+    &lt;span class="nv"&gt;RET&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;file&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="c"&gt;# Main&lt;/span&gt;
+&lt;span class="c"&gt;# ----&lt;/span&gt;
+&lt;span class="nv"&gt;actions&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;post upgrade preview deploy&amp;quot;&lt;/span&gt;
+&lt;span class="nv"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;requirs action!, avaliabl actions are ${actions}&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt;
+
+&lt;span class="c"&gt;# run action&lt;/span&gt;
+&lt;span class="nb"&gt;shift&lt;/span&gt;
+&lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;action&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; &lt;span class="nv"&gt;$@&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jason</dc:creator><pubDate>Thu, 25 Sep 2014 02:49:09 +0200</pubDate><guid>tag:,2014-09-25:helper-script.html</guid><category>python</category></item><item><title>你好，世界！</title><link>/ni-hao-shi-jie.html</link><description>&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/^&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jason</dc:creator><pubDate>Fri, 22 Aug 2014 16:08:00 +0200</pubDate><guid>tag:,2014-08-22:ni-hao-shi-jie.html</guid><category>python</category></item><item><title>python4oceanographers</title><link>/first-post.html</link><description>&lt;p&gt;I'll &lt;s&gt;try&lt;/s&gt; to write here some code snippets to help analyze, visualize and
 explore data in oceans sciences.&lt;/p&gt;
 &lt;p&gt;&lt;font color="red"&gt;This post is just a test!&lt;/font&gt;&lt;/p&gt;
