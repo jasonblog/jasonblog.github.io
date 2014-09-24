@@ -11,7 +11,7 @@ PATH = 'content'
 
 TIMEZONE = 'Europe/Paris'
 
-DEFAULT_LANG = u'en'
+DEFAULT_LANG = 'zh'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -31,9 +31,10 @@ SOCIAL = (('You can add links in your config file', '#'),
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
 
 
 path = os.path.join(os.environ.get('HOME'), 'pelican/jasonblog.github.io')
 THEME = '%s/pelican-octopress-theme' % path
 PLUGIN_PATH = '%s/pelican-plugins' % path
+
