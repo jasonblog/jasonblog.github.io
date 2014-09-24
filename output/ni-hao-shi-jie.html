@@ -50,7 +50,141 @@
       <p class="meta"><time datetime="2014-08-22T16:08:00" pubdate>五 22 八月 2014</time></p>
 </header>
 
-  <div class="entry-content"><p>你好，世界，世界，你好。</p></div>
+  <div class="entry-content"><p>你好，世界，世界，你好。</p>
+<div class="highlight"><pre><span class="c">#! /usr/bin/python</span>
+<span class="c"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">urllib2</span>
+
+<span class="k">def</span> <span class="nf">GetHtmlcode</span><span class="p">(</span><span class="n">ID</span><span class="p">):</span>
+    <span class="c"># Get the webpage&#39;s source html code</span>
+    <span class="kp">source</span> <span class="o">=</span> <span class="s">&#39;http://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID=&#39;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="kp">source</span> <span class="o">+</span> <span class="n">ID</span>
+
+    <span class="c"># Header</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;User-Agent&#39;</span> <span class="p">:</span> <span class="s">&#39;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36&#39;</span><span class="p">,</span>
+                <span class="s">&#39;Accept&#39;</span> <span class="p">:</span> <span class="s">&#39;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#39;</span><span class="p">,</span>
+                <span class="s">&#39;Accept-Charset&#39;</span> <span class="p">:</span> <span class="s">&#39;Big5,utf-8;q=0.7,*;q=0.3&#39;</span><span class="p">,</span>
+                <span class="c">#&#39;Accept-Encoding&#39; : &#39;gzip,deflate,sdch&#39;,</span>
+                <span class="s">&#39;Accept-Language&#39;</span> <span class="p">:</span> <span class="s">&#39;zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4,ja;q=0.2&#39;</span> <span class="p">,</span>
+                <span class="s">&#39;Cache-Control&#39;</span> <span class="p">:</span> <span class="s">&#39;max-age=0&#39;</span><span class="p">,</span>
+                <span class="s">&#39;Connection&#39;</span> <span class="p">:</span> <span class="s">&#39;keep-alive&#39;</span><span class="p">,</span>
+                <span class="s">&#39;Cookie&#39;</span> <span class="p">:</span> <span class="s">&#39;427 bytes were stripped&#39;</span><span class="p">,</span>
+                <span class="s">&#39;Host&#39;</span> <span class="p">:</span> <span class="s">&#39;www.goodinfo.tw&#39;</span><span class="p">,</span>
+                <span class="s">&#39;Referer&#39;</span> <span class="p">:</span> <span class="n">url</span> <span class="p">}</span>
+
+    <span class="c"># 連到網頁抓取資料</span>
+    <span class="n">req</span><span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="c">#print result</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">split_html_tags</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">list_</span><span class="p">):</span>
+    <span class="c">#print tables.encode(&#39;utf-8&#39;)</span>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;&lt;tr align=&#39;center&#39;[\s\S]*?&lt;\/tr&gt;&quot;</span><span class="p">)</span>
+    <span class="n">datarow</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">tables</span><span class="p">)</span>
+    <span class="c">#print len(datarow)</span>
+    <span class="n">datarow</span> <span class="o">=</span> <span class="n">datarow</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">str_convert</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datarow</span><span class="p">)</span>
+
+    <span class="n">string</span> <span class="o">=</span> <span class="n">str_convert</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;&lt;td\s*\S*&gt;(\S+)&lt;\/td&gt;&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">str_convert</span><span class="p">)</span>
+    <span class="c">#print data</span>
+    <span class="c">#print len(data)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">list_</span><span class="o">.</span><span class="kp">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="c">#print len(data) / (len(datarow) -1)</span>
+    <span class="n">list_</span><span class="o">.</span><span class="kp">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">datarow</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">parse_stock</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;\&lt;title\&gt;(.*)\&lt;\/title\&gt;&quot;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">page</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">[:</span><span class="n">title</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c">#print title</span>
+
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&#39;&lt;table[\s\S]*?&lt;\/table&gt;&#39;</span><span class="p">)</span>
+    <span class="n">datatable</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="c">#print len(datatable)</span>
+
+    <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">Profit_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Dividends_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">list_</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">datatable</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">u&quot;</span><span class="se">\u8fd1</span><span class="s">&amp;nbsp;10&amp;nbsp;</span><span class="se">\u5e74</span><span class="s">&amp;nbsp;</span><span class="se">\u80a1</span><span class="s">&amp;nbsp;</span><span class="se">\u5229</span><span class="s">&amp;nbsp;</span><span class="se">\u653f</span><span class="s">&amp;nbsp;</span><span class="se">\u7b56</span><span class="s">&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">split_html_tags</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">Dividends_list</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">l</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">u&#39;</span><span class="se">\u7372\u3000\u5229\u3000\u72c0\u3000\u6cc1</span><span class="s">&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">split_html_tags</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">Profit_list</span><span class="p">)</span>
+
+    <span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;股票名稱&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">title</span>
+    <span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;股利&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dividends_list</span>
+    <span class="n">data_dict</span><span class="p">[</span><span class="s">&#39;績效&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Profit_list</span>
+
+    <span class="c">#list_.append(Dividends_list)</span>
+    <span class="c">#list_.append(Profit_list)</span>
+
+    <span class="k">return</span> <span class="n">data_dict</span>
+
+<span class="c"># 計算出股票價值 五年的現金值利率 每股淨值 ROE 毛利率</span>
+<span class="k">def</span> <span class="nf">pasre_stock_value</span><span class="p">(</span><span class="n">dict_</span><span class="p">):</span>
+
+    <span class="k">print</span> <span class="n">dict_</span><span class="p">[</span><span class="s">&#39;股票名稱&#39;</span><span class="p">]</span>
+    <span class="c">#print dict_[&#39;股利&#39;]</span>
+    <span class="c">#print dict_[&#39;績效&#39;]</span>
+    <span class="n">Dividends_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Profit_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Evaluation_four_value_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">list_</span> <span class="o">=</span> <span class="n">dict_</span><span class="p">[</span><span class="s">&#39;股利&#39;</span><span class="p">]</span>
+    <span class="n">tmp_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">tmp_list</span><span class="o">.</span><span class="kp">append</span><span class="p">(</span><span class="n">list_</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">list_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">Dividends_list</span><span class="o">.</span><span class="kp">append</span><span class="p">(</span><span class="n">tmp_list</span><span class="p">)</span>
+            <span class="n">tmp_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+    <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c"># 計算五年股利平均</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="nb">sum</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Dividends_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
+        <span class="c">#print Dividends_list[i]</span>
+        <span class="c">#print Dividends_list[i][3]</span>
+
+    <span class="k">print</span> <span class="nb">sum</span> <span class="o">/</span> <span class="mf">5.0</span>
+
+
+    <span class="n">list_</span> <span class="o">=</span> <span class="n">dict_</span><span class="p">[</span><span class="s">&#39;績效&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_</span><span class="p">)</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">tmp_list</span><span class="o">.</span><span class="kp">append</span><span class="p">(</span><span class="n">list_</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">list_</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">Profit_list</span><span class="o">.</span><span class="kp">append</span><span class="p">(</span><span class="n">tmp_list</span><span class="p">)</span>
+            <span class="n">tmp_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Profit_list</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">i</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">fin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;StockCode&#39;</span><span class="p">,</span> <span class="s">&#39;r+&#39;</span><span class="p">)</span>
+    <span class="n">StockCodeList</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()]</span>
+    <span class="n">fin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">page</span> <span class="o">=</span> <span class="n">GetHtmlcode</span><span class="p">(</span><span class="s">&#39;2498&#39;</span><span class="p">)</span>
+    <span class="n">dict_</span> <span class="o">=</span> <span class="n">parse_stock</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+    <span class="n">pasre_stock_value</span><span class="p">(</span><span class="n">dict_</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
