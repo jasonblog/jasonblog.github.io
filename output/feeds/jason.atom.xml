@@ -1,5 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Blog</title><link href="/" rel="alternate"></link><link href="/feeds/jason.atom.xml" rel="self"></link><id>/</id><updated>2014-09-25T02:49:09+02:00</updated><entry><title>helper script</title><link href="/helper-script.html" rel="alternate"></link><updated>2014-09-25T02:49:09+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-25:helper-script.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Blog</title><link href="/" rel="alternate"></link><link href="/feeds/jason.atom.xml" rel="self"></link><id>/</id><updated>2014-09-26T18:48:28+02:00</updated><entry><title>SPI、I2C、I2S、UART、CAN、SDIO、GPIO的介绍</title><link href="/spi-i2c-i2s-uart-can-sdio-gpiode-jie-shao.html" rel="alternate"></link><updated>2014-09-26T18:48:28+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-26:spi-i2c-i2s-uart-can-sdio-gpiode-jie-shao.html</id><summary type="html">&lt;h3&gt;SPI&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;SPI(Serial Peripheral Interface)是MOTOROLA公司提出的同步串行總線方式。高速同步串行口。&lt;/li&gt;
+&lt;li&gt;3~4線接口，收發獨立、可同步進行. &lt;/li&gt;
+&lt;li&gt;因其硬件功能強大而被廣泛應用。在單片機組成的智能儀器和測控系統中。如果對速度要求不高,採用SPI總線模式是個不錯的選擇。它可以節省I/O端口,提高外設的數目和系統的性能。標準SPI總線由四根線組成：串行時鐘線(SCK)、主機輸入/從機輸出線(MISO)。主機輸出/從機輸入線(MOSI)和片選信號(CS)。有的SPI接口芯片帶有中斷信號線或沒有MOSI。
+    SPI總線由三條信號線組成：串行時鐘(SCLK)、串行數據輸出(SDO)、串行數據輸入(SDI)。SPI總線可以實現多個SPI設備互相連接。提供SPI串行時鐘的SPI設備為SPI主機或主設備(Master)，其他設備為SPI從機或從設備(Slave)。主從設備間可以實現全雙工通信，當有多個從設備時，還可以增加一條從設備選擇線。如果用通用IO口模擬SPI總線，必須要有一個輸出口(SDO)，一個輸入口(SDI)，另一個口則視實現的設備類型而定，如果要實現主從設備，則需輸入輸出口，若只實現主設備，則需輸出口即可，若只實現從設備，則只需輸入口即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;I2C&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;I2C: (Inter－Integrated Circuit)總線是一種由PHILIPS公司開發的兩線式串行總線，用於連接微控制器及其外圍設備.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I2C總線用兩條線(SDA和SCL)在總線和裝置之間傳遞信息，在微控制器和外部設備之間進行串行通訊或在主設備和從設備之間的雙向數據傳送。I2C是OD輸出的，大部分I2C都是2線的（時鐘和數據），一般用來傳輸控制信號。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;I2C是多主控總線，所以任何一個設備都能像主控器一樣工作，並控制總線。總線上每一個設備都有一個獨一無二的地址，根據設備它們自己的能力，它們可以作為發射器或接收器工作。多路微控制器能在同一個I2C總線上共存。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;I2S&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;I2S（Inter-IC Sound Bus）是飛利浦公司為數字音頻設備之間的音頻 數據傳輸而制定的一種總線標準。 I2S則大部分是3線的（除了時鐘和數據外，還有一個左右聲道的選擇信號），I2S主要用來傳輸音頻信號。如STB、DVD、MP3等常用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;UART&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;UART：通用異步串行口。按照標準波特率完成雙向通訊，速度慢. &lt;/li&gt;
+&lt;li&gt;UART總線是異步串口，因此一般比前兩種同步串口的結構要複雜很多，一般由波特率產生器(產生的波特率等於傳輸波特率的16倍)、UART接收器、UART發送器組成，硬件上由兩根線，一根用於發送，一根用於接收。&lt;/li&gt;
+&lt;li&gt;UART是用於控制計算機與串行設備的芯片。有一點要注意的是，它提供了RS-232C數據終端設備接口，這樣計算機就可以和調制解調器或其它使用RS-232C接口的串行設備通信了 。作為接口的一部分，UART還提供以下功能： 
+   將由計算機內部傳送過來的並行數據轉換為輸出的串行數據流。將計算機外部來的串行 
+數據轉換為字節，供計算機內部使用並行數據的器件使用。在輸出的串行數據流中加入 
+奇偶校驗位，並對從外部接收的數據流進行奇偶校驗。在輸出數據流中加入啟停標記， 
+並從接收數據流中刪除啟停標記。處理由鍵盤或鼠標發出的中斷信號（鍵盤和鼠標也是 
+串行設備）。可以處理計算機與外部串行設備的同步管理問題。有一些比較高檔的UART 
+還提供輸入輸出數據的緩衝區，現在比較新的UART是16550，它可以在計算機需要處理數 
+據前在其緩衝區內存儲16字節數據，而通常的UART是8250。現在如果您購買一個內置的 
+調制解調器，此調制解調器內部通常就會有16550 UART。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;GPIO&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;GPIO (General Purpose Input Output 通用輸入/輸出)或總線擴展器利用工業標準I²C、SMBus™或SPI™接口簡化了I/O口的擴展。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;當微控制器或芯片組沒有足夠的I/O端口，或當系統 需要採用遠端串行通信或控制時，GPIO產品能夠提供額外的控制和監視功能。每個GPIO端口可通過軟件分別配置成輸入或輸出。Maxim的GPIO產品線包括8端口至28端口的GPIO，提供推挽式輸出或漏極開路輸出。提供微型3mm x 3mm QFN封裝。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;GPIO的優點(端口擴展器)
+低功耗：GPIO具有更低的功率損耗(大約1μA，μC的工作電流則為100μA)。
+集成IIC從機接口：GPIO內置IIC從機接口，即使在待機模式下也能夠全速工作。
+小封裝：GPIO器件提供最小的封裝尺寸 ─ 3mm x 3mm QFN!
+低成本：您不用為沒有使用的功能買單！
+快速上市：不需要編寫額外的代碼、文檔，不需要任何維護工作！
+靈活的燈光控制：內置多路高分辨率的PWM輸出。
+可預先確定響應時間：縮短或確定外部事件與中斷之間的響應時間。
+更好的燈光效果：匹配的電流輸出確保均勻的顯示亮度。
+布線簡單：僅需使用2條IIC總線或3條SPI總線&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;SDIO&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;SDIO是SD型的擴展接口，除了可以接SD卡外，還可以接支持SDIO接口的設備，插口的用途不止是插存儲卡。支持 SDIO接口的PDA，筆記本電腦等都可以連接象GPS接收器，Wi-Fi或藍牙適配器，調制解調器，局域網適配器，條型碼讀取器，FM無線電，電視接收 器，射頻身份認證讀取器，或者數碼相機等等採用SD標準接口的設備。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;CAN&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;CAN，全稱為「Controller Area Network」，即控制器局域網，是國際上應用最廣泛的現場總線之一。最初，CAN被設計作為汽車環境中的微控制器通訊，在車載各電子控制裝置ECU之 間交換信息，形成汽車電子控制網絡。比如：發動機管理系統、變速箱控制器、儀表裝備、電子主幹系統中，均嵌入CAN控制裝置。
+一個由CAN 總線構成的單一網絡中，理論上可以掛接無數個節點。實際應用中，節點數目受網絡硬件的電氣特性所限制。例如，當使用Philips P82C250作為CAN收發器時，同一網絡中允許掛接110個節點。CAN 可提供高達1Mbit/s的數據傳輸速率，這使實時控制變得非常容易。另外，硬件的錯誤檢定特性也增強了CAN的抗電磁干擾能力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;什麼是CSMA/CD ?&lt;/h3&gt;
+&lt;p&gt;CSMA/CD是「載波偵聽多路訪問/衝突檢測」（Carrier Sense Multiple Access with Collision Detect）的縮寫。
+利 用CSMA訪問總線，可對總線上信號進行檢測，只有當總線處於空閒狀態時，才允許發送。利用這種方法，可以允許多個節點掛接到同一網絡上。當檢測到一個沖 突位時，所有節點重新回到『監聽』總線狀態，直到該衝突時間過後，才開始發送。在總線超載的情況下，這種技術可能會造成發送信號經過許多延遲。為了避免發 送時延，可利用CSMA/CD方式訪問總線。當總線上有兩個節點同時進行發送時，必須通過「無損的逐位仲裁」方法來使有最高優先權的的報文優先發送。在 CAN總線上發送的每一條報文都具有唯一的一個11位或29位數字的ID。CAN總線狀態取決於二進制數『0』而不是『1』，所以ID號越小，則該報文擁 有越高的優先權。因此一個為全『0』標誌符的報文具有總線上的最高級優先權。可用另外的方法來解釋：在消息衝突的位置，第一個節點發送0而另外的節點發送 1，那麼發送0的節點將取得總線的控制權，並且能夠成功的發送出它的信息。&lt;/p&gt;
+&lt;p&gt;CAN的高層協議（也可理 解為應用層協議）是一種在現有的底層協議（物理層和數據鏈路層）之上實現的協議。高層協議是在CAN規範的基礎上發展起來的應用層。許多系統（像汽車工 業）中，可以特別制定一個合適的應用層，但對於
+許多的行業來說，這種方法是不經濟的。一些組織已經研究並開放了應用層標準，以使系統的綜合應用變得十分容 易。
+一些可使用的CAN高層協議有：
+制定組織 主要高層協議
+- CiA           CAL協議
+- CiA           CANOpen協議
+- DeviceNet 協議
+- Honeywell  SDS 協議
+- Kvaser       CANKingdom協議&lt;/p&gt;
+&lt;p&gt;什麼是標準格式CAN和擴展格式CAN?
+標準CAN的標誌符長度是11位，而擴展格式CAN的標誌符長度可達29位。CAN 協議的2.0A版本規定CAN控制器必須有一個11位的標誌符。同時，在2.0B版本中規定，CAN控制器的標誌符長度可以是11位或29位。遵循 CAN2.0B協議的CAN控制器可以發送和接收11位標識符的標準格式報文或29位標識符的擴展格式報文。如果禁止CAN2.0B,則CAN 控制器只能發送和接收11位標識符的標準格式報文，而忽略擴展格式的報文結構，但不會出現錯誤。
+目前，Philips公司主要推廣的CAN獨立控制器均支持CAN2.0B協議，即支持29位標識符的擴展格式報文結構。&lt;/p&gt;</summary><category term="python"></category></entry><entry><title>helper script</title><link href="/helper-script.html" rel="alternate"></link><updated>2014-09-25T02:49:09+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-25:helper-script.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#!/bin/bash&lt;/span&gt;
 &lt;span class="c"&gt;# Author: Hsin-Yi Chen &amp;lt;ossug.hychen AT gmail.com&amp;gt;&lt;/span&gt;
 &lt;span class="nv"&gt;ERRMSG_WRONGDIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;You are not under octopress directory&amp;#39;&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt; ! -f _config.yml &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;ERRMSG_WRONGDIR&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="nb"&gt;exit&lt;/span&gt;
@@ -65,14 +142,5 @@ _new_item&lt;span class="o"&gt;(){&lt;/span&gt;
 &lt;span class="c"&gt;# run action&lt;/span&gt;
 &lt;span class="nb"&gt;shift&lt;/span&gt;
 &lt;span class="k"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;action&lt;/span&gt;&lt;span class="k"&gt;}&lt;/span&gt; &lt;span class="nv"&gt;$@&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="python"></category></entry><entry><title>你好，世界！</title><link href="/ni-hao-shi-jie.html" rel="alternate"></link><updated>2014-08-22T16:08:00+02:00</updated><author><name>Jason</name></author><id>tag:,2014-08-22:ni-hao-shi-jie.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/^&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="python"></category></entry><entry><title>python4oceanographers</title><link href="/first-post.html" rel="alternate"></link><updated>2013-05-06T13:37:00+02:00</updated><author><name>Jason</name></author><id>tag:,2013-05-06:first-post.html</id><summary type="html">&lt;p&gt;I'll &lt;s&gt;try&lt;/s&gt; to write here some code snippets to help analyze, visualize and
-explore data in oceans sciences.&lt;/p&gt;
-&lt;p&gt;&lt;font color="red"&gt;This post is just a test!&lt;/font&gt;&lt;/p&gt;
-&lt;p&gt;Testing a full notebook:&lt;/p&gt;
-&lt;p&gt;{% notebook 2013-05-06-First_post.ipynb %}&lt;/p&gt;
-&lt;p&gt;Now just some cells (from the same notebook):&lt;/p&gt;
-&lt;p&gt;{% notebook 2013-05-06-First_post.ipynb cells[5:6] %}&lt;/p&gt;
-&lt;p&gt;Include code examples:&lt;/p&gt;
-&lt;p&gt;{% include_code hello_world.py [Code test] %}&lt;/p&gt;
-&lt;p&gt;Seems to work fine!&lt;/p&gt;</summary></entry></feed>
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="python"></category></entry><entry><title>sed 刪除空行</title><link href="/sed-shan-chu-kong-xing.html" rel="alternate"></link><updated>2014-08-22T16:08:00+02:00</updated><author><name>Jason</name></author><id>tag:,2014-08-22:sed-shan-chu-kong-xing.html</id><summary type="html">&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/^&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="sed"></category></entry></feed>
