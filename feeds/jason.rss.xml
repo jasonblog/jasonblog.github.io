@@ -21,8 +21,8 @@ virtualenv pelican_env
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;2.1 建立 Pelican Blog&lt;/p&gt;
-&lt;p&gt;建立 source branch&lt;/p&gt;
+&lt;p&gt;2.1 建立 Pelican Blog
+建立 source branch&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;git checkout -b &lt;span class="nb"&gt;source&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
