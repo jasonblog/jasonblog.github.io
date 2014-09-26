@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Jason Blog - Tags</title>
+  <title>安裝 OpenCV 2.4.9</title>
   <meta name="author" content="Jason">
 
 
@@ -37,7 +37,7 @@
 
 
 <ul class="main-navigation">
-    <li >
+    <li class="active">
     <a href="./category/opencv.html">Opencv</a>
     </li>
     <li >
@@ -52,10 +52,57 @@
 </ul></nav>
   <div id="main">
     <div id="content">
-    <h1>Tags for Jason Blog</h1>        <li><a href="./tag/opencv.html">opencv</a> (1)</li>
-        <li><a href="./tag/pelican.html">Pelican</a> (1)</li>
-        <li><a href="./tag/python.html">python</a> (2)</li>
-        <li><a href="./tag/sed.html">sed</a> (1)</li>
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">安裝 OpenCV 2.4.9</h1>
+      <p class="meta"><time datetime="2014-09-26T19:44:51+02:00" pubdate>五 26 九月 2014</time></p>
+</header>
+
+  <div class="entry-content"><h3>install package</h3>
+<div class="highlight"><pre>sudo apt-get install build-essential libgtk2.0-dev libjpeg-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev python-numpy python-tk libtbb-dev libeigen2-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev libqt4-dev libqt4-opengl-dev sphinx-common texlive-latex-extra libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev
+</pre></div>
+
+
+<h3>download opencv-2.4.9</h3>
+<div class="highlight"><pre>wget -O OpenCV-2.4.9.zip http://fossies.org/linux/misc/opencv-2.4.9.zip
+unzip OpenCV-2.4.9.zip
+</pre></div>
+
+
+<h3>build</h3>
+<div class="highlight"><pre><span class="nb">cd </span>opencv-2.4.9
+mkdir debug ; <span class="nb">cd </span>debug
+cmake -D <span class="nv">CMAKE_INSTALL_PREFIX</span><span class="o">=</span>/usr/local/opencv  -g ..
+make -j8 ; sudo make install
+</pre></div>
+
+
+<h3>bashrc configure</h3>
+<div class="highlight"><pre>~/.bashrc
+<span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$PKG_CONFIG_PATH</span>:/usr/local/opencv/lib/pkgconfig
+<span class="nb">export </span>PKG_CONFIG_PATH
+</pre></div>
+
+
+<h3>test</h3>
+<div class="highlight"><pre><span class="nb">cd </span>opencv-2.4.9/samples/c
+./build_all.sh
+./facedetect lena.jpg
+</pre></div></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">Jason</span>
+  </span>
+<time datetime="2014-09-26T19:44:51+02:00" pubdate>五 26 九月 2014</time>  <span class="categories">
+    <a class="category" href="./tag/opencv.html">opencv</a>
+  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+</div>
 <aside class="sidebar">
   <section>
     <h1>Recent Posts</h1>

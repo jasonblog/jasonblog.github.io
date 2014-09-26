@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jason Blog</title><link>/</link><description></description><atom:link href="/feeds/jason.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 26 Sep 2014 19:28:04 +0200</lastBuildDate><item><title>使用Pelican建立Blog</title><link>/shi-yong-pelicanjian-li-blog.html</link><description>&lt;p&gt;1.1 安裝Pelican&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jason Blog</title><link>/</link><description></description><atom:link href="/feeds/jason.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 26 Sep 2014 19:44:51 +0200</lastBuildDate><item><title>安裝 OpenCV 2.4.9</title><link>/an-zhuang-opencv-249.html</link><description>&lt;h3&gt;install package&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo apt-get install build-essential libgtk2.0-dev libjpeg-dev libtiff4-dev libjasper-dev libopenexr-dev cmake python-dev python-numpy python-tk libtbb-dev libeigen2-dev yasm libfaac-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev libqt4-dev libqt4-opengl-dev sphinx-common texlive-latex-extra libv4l-dev libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;download opencv-2.4.9&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;wget -O OpenCV-2.4.9.zip http://fossies.org/linux/misc/opencv-2.4.9.zip
+unzip OpenCV-2.4.9.zip
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;build&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;opencv-2.4.9
+mkdir debug ; &lt;span class="nb"&gt;cd &lt;/span&gt;debug
+cmake -D &lt;span class="nv"&gt;CMAKE_INSTALL_PREFIX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/local/opencv  -g ..
+make -j8 ; sudo make install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;bashrc configure&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;~/.bashrc
+&lt;span class="nv"&gt;PKG_CONFIG_PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$PKG_CONFIG_PATH&lt;/span&gt;:/usr/local/opencv/lib/pkgconfig
+&lt;span class="nb"&gt;export &lt;/span&gt;PKG_CONFIG_PATH
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;test&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;opencv-2.4.9/samples/c
+./build_all.sh
+./facedetect lena.jpg
+&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jason</dc:creator><pubDate>Fri, 26 Sep 2014 19:44:51 +0200</pubDate><guid>tag:,2014-09-26:an-zhuang-opencv-249.html</guid><category>opencv</category></item><item><title>使用Pelican建立Blog</title><link>/shi-yong-pelicanjian-li-blog.html</link><description>&lt;p&gt;1.1 安裝Pelican&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;pip install virtualenv
 virtualenv pelican_env
 &lt;span class="nb"&gt;source &lt;/span&gt;pelican_env/bin/activate
