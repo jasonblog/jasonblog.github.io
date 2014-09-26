@@ -1,5 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Blog</title><link href="/" rel="alternate"></link><link href="/feeds/jason.atom.xml" rel="self"></link><id>/</id><updated>2014-09-26T18:48:28+02:00</updated><entry><title>SPI、I2C、I2S、UART、CAN、SDIO、GPIO的介绍</title><link href="/spi-i2c-i2s-uart-can-sdio-gpiode-jie-shao.html" rel="alternate"></link><updated>2014-09-26T18:48:28+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-26:spi-i2c-i2s-uart-can-sdio-gpiode-jie-shao.html</id><summary type="html">&lt;h3&gt;SPI&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Blog</title><link href="/" rel="alternate"></link><link href="/feeds/jason.atom.xml" rel="self"></link><id>/</id><updated>2014-09-26T19:28:04+02:00</updated><entry><title>使用Pelican建立Blog</title><link href="/shi-yong-pelicanjian-li-blog.html" rel="alternate"></link><updated>2014-09-26T19:28:04+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-26:shi-yong-pelicanjian-li-blog.html</id><summary type="html">&lt;p&gt;1.1 安裝Pelican&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pip install virtualenv
+virtualenv pelican_env
+&lt;span class="nb"&gt;source &lt;/span&gt;pelican_env/bin/activate
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;安裝pelican工具&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pip install pelican markdown ghp-import
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;1.2 建立 Github Page
+* 在Github上創建一個倉庫，倉庫名是用戶名.github.io，注意這裡的用戶名是自己的用戶名&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;建立好後，clone 到 local&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git clone https://github.com/xxxx/xxx.github.io
+&lt;span class="nb"&gt;cd &lt;/span&gt;xxx.github.io
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2.1 建立 Pelican Blog&lt;/p&gt;
+&lt;p&gt;建立 source branch&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git checkout -b &lt;span class="nb"&gt;source&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;建立 Pelican&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pelican-quickstart
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;建立的過程中，會問你一些問題，你可以參考下面的回答。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;gt; Where &lt;span class="k"&gt;do &lt;/span&gt;you want to create your new web site? &lt;span class="o"&gt;[&lt;/span&gt;.&lt;span class="o"&gt;]&lt;/span&gt; 
+&amp;gt; What will be the title of this web site? Buttermilch
+&amp;gt; Who will be the author of this web site? Tony Stark
+&amp;gt; What will be the default language of this web site? &lt;span class="o"&gt;[&lt;/span&gt;en&lt;span class="o"&gt;]&lt;/span&gt; 
+&amp;gt; Do you want to specify a URL prefix? e.g., http://example.com   &lt;span class="o"&gt;(&lt;/span&gt;Y/n&lt;span class="o"&gt;)&lt;/span&gt; n
+&amp;gt; Do you want to &lt;span class="nb"&gt;enable &lt;/span&gt;article pagination? &lt;span class="o"&gt;(&lt;/span&gt;Y/n&lt;span class="o"&gt;)&lt;/span&gt; 
+&amp;gt; How many articles per page &lt;span class="k"&gt;do &lt;/span&gt;you want? &lt;span class="o"&gt;[&lt;/span&gt;10&lt;span class="o"&gt;]&lt;/span&gt; 
+&amp;gt; Do you want to generate a Fabfile/Makefile ... and publishing? &lt;span class="o"&gt;(&lt;/span&gt;Y/n&lt;span class="o"&gt;)&lt;/span&gt; 
+&amp;gt; Do you want an auto-reload &amp;amp; simpleHTTP ... and site development? &lt;span class="o"&gt;(&lt;/span&gt;Y/n&lt;span class="o"&gt;)&lt;/span&gt; 
+&amp;gt; Do you want to upload your website using FTP? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; 
+&amp;gt; Do you want to upload your website using SSH? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; 
+&amp;gt; Do you want to upload your website using Dropbox? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; 
+&amp;gt; Do you want to upload your website using S3? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; 
+&amp;gt; Do you want to upload your website using Rackspace Cloud Files? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2.1.1 安裝 theme 跟 plugins&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git clone https://github.com/jakevdp/pelican-octopress-theme.git
+git clone https://github.com/getpelican/pelican-plugins.git
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;將 pelicanconf.py 檔案裡的 THEME 跟 PLUGIN_PATH 修改成你放置 pelican-octopress-theme 跟 pelican-plugins 的路徑：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;import os ＃ 新增
+&lt;span class="nv"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; os.path.join&lt;span class="o"&gt;(&lt;/span&gt;os.environ.get&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;HOME&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;, &lt;span class="s1"&gt;&amp;#39;pelican&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;THEME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;%s/pelican-octopress-theme&amp;#39;&lt;/span&gt; % path
+&lt;span class="nv"&gt;PLUGIN_PATH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;%s/pelican-plugins&amp;#39;&lt;/span&gt; % path
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2.2 建立Markdown文章&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Title: 你好，世界！
+Date: 2014-09-26 16:08
+Category: Python
+Tags: python
+Author: Jason
+Summary: 你好，世界！
+你好，世界，世界，你好。
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2.3 Local test
+編寫好了之後，就可以在本地進行測試了。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;pelican content -s pelicanconf.py --ignore-cache
+&lt;span class="nb"&gt;cd &lt;/span&gt;output
+python -m SimpleHTTPServer 1111
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2.4 提交更改&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git add .
+git commit -m &lt;span class="s2"&gt;&amp;quot;initial commit&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2.5 發佈&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git branch gh-pages
+ghp-import output
+git checkout master
+git merge gh-pages
+git push --all
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;2.6 之後修改文章只需下面步驟即可&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;git checkout &lt;span class="nb"&gt;source&lt;/span&gt;
+新增修改文章
+git add .
+git commit -m &lt;span class="s2"&gt;&amp;quot;update&amp;quot;&lt;/span&gt;
+ghp-import output
+git checkout master
+git merge gh-pages
+git push --all
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="Pelican"></category></entry><entry><title>SPI、I2C、I2S、UART、CAN、SDIO、GPIO的介绍</title><link href="/spi-i2c-i2s-uart-can-sdio-gpiode-jie-shao.html" rel="alternate"></link><updated>2014-09-26T18:48:28+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-26:spi-i2c-i2s-uart-can-sdio-gpiode-jie-shao.html</id><summary type="html">&lt;h3&gt;SPI&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;SPI(Serial Peripheral Interface)是MOTOROLA公司提出的同步串行總線方式。高速同步串行口。&lt;/li&gt;
 &lt;li&gt;3~4線接口，收發獨立、可同步進行. &lt;/li&gt;
