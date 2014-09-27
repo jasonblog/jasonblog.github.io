@@ -59,7 +59,7 @@
   <article class="hentry" role="article">
 <header>
       <h1 class="entry-title">安裝 OpenCV 2.4.9</h1>
-      <p class="meta"><time datetime="2014-09-26T19:44:51" pubdate>五 26 九月 2014</time></p>
+      <p class="meta"><time datetime="2014-09-26T19:44:51+02:00" pubdate>五 26 九月 2014</time></p>
 </header>
 
   <div class="entry-content"><h3>install package</h3>
@@ -81,6 +81,14 @@ make -j8 ; sudo make install
 </pre></div>
 
 
+<h3>add library path</h3>
+<div class="highlight"><pre>sudo vim /etc/ld.so.conf.d/opencv.conf
+/usr/local/opencv/lib
+sudo ldconfig
+ldconfig -p | ag <span class="s1">&#39;opencv&#39;</span>
+</pre></div>
+
+
 <h3>bashrc configure</h3>
 <div class="highlight"><pre>~/.bashrc
 <span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$PKG_CONFIG_PATH</span>:/usr/local/opencv/lib/pkgconfig
@@ -98,7 +106,7 @@ make -j8 ; sudo make install
   <span class="byline author vcard">
     Posted by <span class="fn">Jason</span>
   </span>
-<time datetime="2014-09-26T19:44:51" pubdate>五 26 九月 2014</time>  <span class="categories">
+<time datetime="2014-09-26T19:44:51+02:00" pubdate>五 26 九月 2014</time>  <span class="categories">
     <a class="category" href="./tag/opencv.html">opencv</a>
   </span>
 </p><div class="sharing">
