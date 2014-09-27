@@ -36,6 +36,14 @@ make -j8 ; sudo make install
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;h3&gt;add library path&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sudo vim /etc/ld.so.conf.d/opencv.conf
+/usr/local/opencv/lib
+sudo ldconfig
+ldconfig -p | ag &lt;span class="s1"&gt;&amp;#39;opencv&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;h3&gt;bashrc configure&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;~/.bashrc
 &lt;span class="nv"&gt;PKG_CONFIG_PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$PKG_CONFIG_PATH&lt;/span&gt;:/usr/local/opencv/lib/pkgconfig
