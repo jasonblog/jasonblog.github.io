@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Blog</title><link href="/" rel="alternate"></link><link href="/feeds/jason.atom.xml" rel="self"></link><id>/</id><updated>2014-09-27T00:37:54+02:00</updated><entry><title>資料傳輸速率計算</title><link href="/zi-liao-chuan-shu-su-lu-ji-suan.html" rel="alternate"></link><updated>2014-09-27T00:37:54+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-27:zi-liao-chuan-shu-su-lu-ji-suan.html</id><summary type="html">&lt;p&gt;數據通信中用以描述資料傳輸速率有三個名詞：鮑速率(baud rate)、資料速率(data rate)、以及有效資料速率(effective data rate)。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jason Blog</title><link href="/" rel="alternate"></link><link href="/feeds/jason.atom.xml" rel="self"></link><id>/</id><updated>2014-09-27T23:18:01+02:00</updated><entry><title>github 多個帳號ssh key</title><link href="/github-duo-ge-zhang-hao-ssh-key.html" rel="alternate"></link><updated>2014-09-27T23:18:01+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-27:github-duo-ge-zhang-hao-ssh-key.html</id><summary type="html">&lt;p&gt;場景：有多個github賬號，比如公司一個，私人一個。現在想在同一台主機上同時維護公司的和私人的repo
+大家可能會嘗試把一個公鑰貼到兩個github賬戶，實踐告訴我們&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Key is already in use
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;解決辦法：
+1. 生成第二個key ssh-keygen -t rsa  -f ~/.ssh/id_rsa.est
+2. 編輯ssh_config vim ~/.ssh/config 粘貼下邊的東東：
+Host estgit
+HostName github.com
+User git
+IdentityFile &lt;span class="s2"&gt;&amp;quot;~/.ssh/id_rsa.est&amp;quot;&lt;/span&gt;
+IdentitiesOnly yes
+　
+3. 用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;git：git clone estgit:/username/repo  // estgit 需要跟 ~/.ssh/config Host estgit 一致&lt;/p&gt;
+&lt;p&gt;用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url
+原理就是，指定一個ssh的Host的單獨IdentityFile，然後因為git是基於ssh的，所以用Host名稱連接github.com就會用那個單獨的公鑰了。&lt;/p&gt;</summary><category term="github"></category></entry><entry><title>資料傳輸速率計算</title><link href="/zi-liao-chuan-shu-su-lu-ji-suan.html" rel="alternate"></link><updated>2014-09-27T00:37:54+02:00</updated><author><name>Jason</name></author><id>tag:,2014-09-27:zi-liao-chuan-shu-su-lu-ji-suan.html</id><summary type="html">&lt;p&gt;數據通信中用以描述資料傳輸速率有三個名詞：鮑速率(baud rate)、資料速率(data rate)、以及有效資料速率(effective data rate)。&lt;/p&gt;
 &lt;h3&gt;(1) 鮑速率&lt;/h3&gt;
 &lt;p&gt;鮑速率為傳每秒所送信號變化的次數，包括了頻率、相位、振幅以及它們的混合等型態的變化，可以用一個信號時距(Ts)來代表一個位元的傳輸時間，故鮑速率可寫成：
 鮑速率 = 1 / Ts
