@@ -5,20 +5,23 @@
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;解決辦法：
-1. 生成第二個key ssh-keygen -t rsa  -f ~/.ssh/id_rsa.est
-2. 編輯ssh_config vim ~/.ssh/config 粘貼下邊的東東：
+&lt;h3&gt;解決辦法：&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;生成第二個key ssh-keygen -t rsa  -f ~/.ssh/id_rsa.est&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;編輯ssh_config vim ~/.ssh/config 粘貼下邊的東東：
 Host estgit
 HostName github.com
 User git
-IdentityFile &lt;span class="s2"&gt;&amp;quot;~/.ssh/id_rsa.est&amp;quot;&lt;/span&gt;
+IdentityFile "~/.ssh/id_rsa.est"
 IdentitiesOnly yes
-　
-3. 用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;git：git clone estgit:/username/repo  // estgit 需要跟 ~/.ssh/config Host estgit 一致&lt;/p&gt;
+　&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;git：git clone estgit:/username/repo 中的 estgit 需要跟 ~/.ssh/config 裡面的 Host 名稱 estgit 一致&lt;/p&gt;
 &lt;p&gt;用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url
 原理就是，指定一個ssh的Host的單獨IdentityFile，然後因為git是基於ssh的，所以用Host名稱連接github.com就會用那個單獨的公鑰了。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jason</dc:creator><pubDate>Sat, 27 Sep 2014 23:18:01 +0200</pubDate><guid>tag:,2014-09-27:github-duo-ge-zhang-hao-ssh-key.html</guid><category>github</category></item><item><title>資料傳輸速率計算</title><link>/zi-liao-chuan-shu-su-lu-ji-suan.html</link><description>&lt;p&gt;數據通信中用以描述資料傳輸速率有三個名詞：鮑速率(baud rate)、資料速率(data rate)、以及有效資料速率(effective data rate)。&lt;/p&gt;
 &lt;h3&gt;(1) 鮑速率&lt;/h3&gt;

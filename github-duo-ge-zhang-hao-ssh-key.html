@@ -71,20 +71,23 @@
 </pre></div>
 
 
-<div class="highlight"><pre>解決辦法：
-1. 生成第二個key ssh-keygen -t rsa  -f ~/.ssh/id_rsa.est
-2. 編輯ssh_config vim ~/.ssh/config 粘貼下邊的東東：
+<h3>解決辦法：</h3>
+<ol>
+<li>
+<p>生成第二個key ssh-keygen -t rsa  -f ~/.ssh/id_rsa.est</p>
+</li>
+<li>
+<p>編輯ssh_config vim ~/.ssh/config 粘貼下邊的東東：
 Host estgit
 HostName github.com
 User git
-IdentityFile <span class="s2">&quot;~/.ssh/id_rsa.est&quot;</span>
+IdentityFile "~/.ssh/id_rsa.est"
 IdentitiesOnly yes
-　
-3. 用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url
-</pre></div>
-
-
-<p>git：git clone estgit:/username/repo  // estgit 需要跟 ~/.ssh/config Host estgit 一致</p>
+　</p>
+</li>
+<li>用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url</li>
+</ol>
+<p>git：git clone estgit:/username/repo 中的 estgit 需要跟 ~/.ssh/config 裡面的 Host 名稱 estgit 一致</p>
 <p>用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url
 原理就是，指定一個ssh的Host的單獨IdentityFile，然後因為git是基於ssh的，所以用Host名稱連接github.com就會用那個單獨的公鑰了。</p></div>
     <footer>
