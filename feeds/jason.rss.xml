@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jason Blog</title><link>/</link><description></description><atom:link href="/feeds/jason.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 27 Sep 2014 23:18:01 +0200</lastBuildDate><item><title>github 多個帳號ssh key</title><link>/github-duo-ge-zhang-hao-ssh-key.html</link><description>&lt;p&gt;場景：有多個github賬號，比如公司一個，私人一個。現在想在同一台主機上同時維護公司的和私人的repo
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jason Blog</title><link>/</link><description></description><atom:link href="/feeds/jason.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 04 Oct 2014 18:43:55 +0200</lastBuildDate><item><title>函數無參數, 必須宣告為 void</title><link>/han-shu-wu-can-shu-bi-xu-xuan-gao-wei-void.html</link><description>&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; 
+&lt;span class="p"&gt;{&lt;/span&gt; 
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt; &lt;/span&gt;
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;fun&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; 
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;fun&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt; 
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在 C語言中，可以給無參數的函數傳送任意型態的參數， 但是在 C++編譯器中編譯同樣的程式則會出錯
+所以，無論在 C還是 C++中，若函數不接受任何參數，一定要指明參數為 void。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jason</dc:creator><pubDate>Sat, 04 Oct 2014 18:43:55 +0200</pubDate><guid>tag:,2014-10-04:han-shu-wu-can-shu-bi-xu-xuan-gao-wei-void.html</guid><category>C</category></item><item><title>github 多個帳號ssh key</title><link>/github-duo-ge-zhang-hao-ssh-key.html</link><description>&lt;p&gt;場景：有多個github賬號，比如公司一個，私人一個。現在想在同一台主機上同時維護公司的和私人的repo
 大家可能會嘗試把一個公鑰貼到兩個github賬戶，實踐告訴我們&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;Key is already in use
 &lt;/pre&gt;&lt;/div&gt;
