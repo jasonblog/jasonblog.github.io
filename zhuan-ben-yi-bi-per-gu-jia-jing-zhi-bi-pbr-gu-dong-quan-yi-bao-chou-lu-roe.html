@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>github 多個帳號ssh key</title>
+  <title>[轉] 本益比(PER)、股價淨值比(PBR)、股東權益報酬率(ROE)</title>
   <meta name="author" content="Jason">
 
 
@@ -40,7 +40,7 @@
     <li >
     <a href="./category/c.html">C</a>
     </li>
-    <li class="active">
+    <li >
     <a href="./category/github.html">Github</a>
     </li>
     <li >
@@ -61,7 +61,7 @@
     <li >
     <a href="./category/sed.html">Sed</a>
     </li>
-    <li >
+    <li class="active">
     <a href="./category/stock.html">Stock</a>
     </li>
 </ul></nav>
@@ -70,42 +70,48 @@
 <div>
   <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">github 多個帳號ssh key</h1>
-      <p class="meta"><time datetime="2014-09-27T23:18:01" pubdate>六 27 九月 2014</time></p>
+      <h1 class="entry-title">[轉] 本益比(PER)、股價淨值比(PBR)、股東權益報酬率(ROE)</h1>
+      <p class="meta"><time datetime="2014-10-04T23:25:58" pubdate>六 04 十月 2014</time></p>
 </header>
 
-  <div class="entry-content"><p>場景：有多個github賬號，比如公司一個，私人一個。現在想在同一台主機上同時維護公司的和私人的repo
-大家可能會嘗試把一個公鑰貼到兩個github賬戶，實踐告訴我們</p>
-<div class="highlight"><pre>Key is already in use
-</pre></div>
-
-
-<h3>解決辦法：</h3>
-<ol>
-<li>
-<p>生成第二個key ssh-keygen -t rsa  -f ~/.ssh/id_rsa.est</p>
-</li>
-<li>
-<p>編輯ssh_config vim ~/.ssh/config 粘貼下邊的東東：
-Host estgit
-HostName github.com
-User git
-IdentityFile "~/.ssh/id_rsa.est"
-IdentitiesOnly yes
-　</p>
-</li>
-<li>用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url</li>
-</ol>
-<p>git：git clone estgit:/username/repo 中的 estgit 需要跟 ~/.ssh/config 裡面的 Host 名稱 estgit 一致</p>
-<p>用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url
-原理就是，指定一個ssh的Host的單獨IdentityFile，然後因為git是基於ssh的，所以用Host名稱連接github.com就會用那個單獨的公鑰了。</p></div>
+  <div class="entry-content"><h3>本益比(PER)</h3>
+<p>本益比是企業在一特定的時間，計算股價(本)相對於盈餘(益)的比值。</p>
+<p>本益比(PER) = 每股市價 / 每股盈餘(EPS) ；計算出的單位是倍</p>
+<p>其中每股盈餘(EPS)是指 公司淨利 / 公司所發行的股數，EPS是衡量企業經營績效的財務指標之一。</p>
+<p>本益比的價值在於，假設企業的獲利保持不變，原投資(購買股票)金額，要幾年才可以回收。例如：本益比算出來為10，表示說所投資的錢10後本金可以回收。從此角度來看本益比當然越低越好。不過實際操作上，衡量本益比有ㄧ些參考準則：
+1. 本益比 vs 整個市場
+2. 本益比 vs 同業的本益比
+3. 現在的本益比 vs 過去的本益比
+4. 現在的本益比 vs 合理本益比 
+其中第4點，合理本益比，是拿利率來做為比較，一搬來說，合理本益比應為利率的倒數，例如：年定存利率為2%時，合理本益比則為50，有就是說如果把錢放在銀行，必須要50年才可回收本金。</p>
+<h3>股價淨值比(PBR)</h3>
+<p>股價淨值比(PBR)是指企業於特定時間點的股價，相對於最近季底每股淨值的比值。</p>
+<p>股價淨值比(PBR) = 股票市值 / 每股淨值 ；(倍)</p>
+<p>其中每股淨值是指企業股票的每股股份真正的價值為多少：</p>
+<p>每股淨值 = (資產總額 - 負債總額) / 發行股數</p>
+<p>當企業營運不佳時，投資人不看好，股價淨值比(PBR)下滑，反之，營運成效良好，投資人有信心，股價淨值比(PBR)上漲，簡言之，股價淨值比(PBR)反應出投資人對於該股的信心指數，股價淨值比(PBR)也可說是各股的人氣指數。</p>
+<p>實際操作上，可以拿個股的每股淨值 乘上 同類股的一般PBR，計算出合理的股價。股市分析中，常可聽到「建議操作區間」，這區間就是由PBR算出來合理的股價，超出合理股價區間的上限，稱之超漲，低於合理股價區間的下限，稱之超跌。</p>
+<p>如何取得股價淨值比(PBR)
+http://www.tse.com.tw =&gt; 交易資訊 =&gt; 個股日本益比、殖利率及股價淨值比 (依代碼查詢or日期查詢)</p>
+<h3>股東權益報酬率(ROE)</h3>
+<p>在了解股東權益報酬率(ROE)前，需先了解「股東權益」以及「平均股東權益」。</p>
+<p>股東權益是指股東擁有的公司淨值。</p>
+<p>股東權益 = 公司總資產 - 總負債</p>
+<p>平均股東權益是指在一段時間(通常為一年)股東權益的平均。</p>
+<p>平均股東權益 = (期初股東權益 + 期末股東權益) / 2</p>
+<p>最後，股東權益報酬率(ROE)，又稱淨值報酬率</p>
+<p>股東權益報酬率(ROE) = (稅後淨利 / 平均股東權益) * 100%</p>
+<p>股東權益報酬率(ROE)，所反映的事股東擁有的每一元可以享有的報酬率，換言之，股東權益報酬率(ROE)越穩定成長，表示該公司越有投資的價值。當然ROE也是重視「價值投資」的投資人觀察的重點。ROE越高，代表公司越能替股東賺錢。</p>
+<p>對於「價值投資」的投資人，選股時建議選擇PBR低以及ROE高的個股。</p>
+<p>by James
+http://sclin0323.pixnet.net/blog/post/24993390-%E6%9C%AC%E7%9B%8A%E6%AF%94(per)%E3%80%81%E8%82%A1%E5%83%B9%E6%B7%A8%E5%80%BC%E6%AF%94(pbr)%E3%80%81%E8%82%A1%E6%9D%B1%E6%AC%8A%E7%9B%8A%E5%A0%B1%E9%85%AC</p></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
     Posted by <span class="fn">Jason</span>
   </span>
-<time datetime="2014-09-27T23:18:01" pubdate>六 27 九月 2014</time>  <span class="categories">
-    <a class="category" href="./tag/github.html">github</a>
+<time datetime="2014-10-04T23:25:58" pubdate>六 04 十月 2014</time>  <span class="categories">
+    <a class="category" href="./tag/stock.html">stock</a>
   </span>
 </p><div class="sharing">
 </div>    </footer>
