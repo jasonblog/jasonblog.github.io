@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>github 多個帳號ssh key</title>
+  <title>函數無參數, 必須宣告為 void</title>
   <meta name="author" content="Jason">
 
 
@@ -37,10 +37,10 @@
 
 
 <ul class="main-navigation">
-    <li >
+    <li class="active">
     <a href="./category/c.html">C</a>
     </li>
-    <li class="active">
+    <li >
     <a href="./category/github.html">Github</a>
     </li>
     <li >
@@ -64,42 +64,40 @@
 <div>
   <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">github 多個帳號ssh key</h1>
-      <p class="meta"><time datetime="2014-09-27T23:18:01" pubdate>六 27 九月 2014</time></p>
+      <h1 class="entry-title">函數無參數, 必須宣告為 void</h1>
+      <p class="meta"><time datetime="2014-10-04T18:43:55" pubdate>六 04 十月 2014</time></p>
 </header>
 
-  <div class="entry-content"><p>場景：有多個github賬號，比如公司一個，私人一個。現在想在同一台主機上同時維護公司的和私人的repo
-大家可能會嘗試把一個公鑰貼到兩個github賬戶，實踐告訴我們</p>
-<div class="highlight"><pre>Key is already in use
+  <div class="entry-content"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> 
+<span class="p">{</span> 
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> 
+<span class="p">}</span>
 </pre></div>
 
 
-<h3>解決辦法：</h3>
-<ol>
-<li>
-<p>生成第二個key ssh-keygen -t rsa  -f ~/.ssh/id_rsa.est</p>
-</li>
-<li>
-<p>編輯ssh_config vim ~/.ssh/config 粘貼下邊的東東：
-Host estgit
-HostName github.com
-User git
-IdentityFile "~/.ssh/id_rsa.est"
-IdentitiesOnly yes
-　</p>
-</li>
-<li>用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url</li>
-</ol>
-<p>git：git clone estgit:/username/repo 中的 estgit 需要跟 ~/.ssh/config 裡面的 Host 名稱 estgit 一致</p>
-<p>用這個方式來操作git：git clone estgit:/username/repo ，或者編輯 .git/config 裡邊的 remote - url
-原理就是，指定一個ssh的Host的單獨IdentityFile，然後因為git是基於ssh的，所以用Host名稱連接github.com就會用那個單獨的公鑰了。</p></div>
+<div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt; </span>
+<span class="kt">int</span> <span class="nf">fun</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> 
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">fun</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span> 
+</pre></div>
+
+
+<p>在 C語言中，可以給無參數的函數傳送任意型態的參數， 但是在 C++編譯器中編譯同樣的程式則會出錯
+所以，無論在 C還是 C++中，若函數不接受任何參數，一定要指明參數為 void。</p></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
     Posted by <span class="fn">Jason</span>
   </span>
-<time datetime="2014-09-27T23:18:01" pubdate>六 27 九月 2014</time>  <span class="categories">
-    <a class="category" href="./tag/github.html">github</a>
+<time datetime="2014-10-04T18:43:55" pubdate>六 04 十月 2014</time>  <span class="categories">
+    <a class="category" href="./tag/c.html">C</a>
   </span>
 </p><div class="sharing">
 </div>    </footer>
