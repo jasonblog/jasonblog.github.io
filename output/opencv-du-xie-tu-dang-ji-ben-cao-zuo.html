@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Opencv 讀寫圖檔基本操作</title>
+  <meta name="author" content="Jason">
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="./favicon.png" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+
+  <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">Jason Blog</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+
+<ul class="main-navigation">
+    <li >
+    <a href="./category/c.html">C</a>
+    </li>
+    <li >
+    <a href="./category/github.html">Github</a>
+    </li>
+    <li class="active">
+    <a href="./category/opencv.html">Opencv</a>
+    </li>
+    <li >
+    <a href="./category/pelican.html">Pelican</a>
+    </li>
+    <li >
+    <a href="./category/protocol.html">Protocol</a>
+    </li>
+    <li >
+    <a href="./category/python.html">Python</a>
+    </li>
+    <li >
+    <a href="./category/sed.html">Sed</a>
+    </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">Opencv 讀寫圖檔基本操作</h1>
+      <p class="meta"><time datetime="2014-10-04T18:58:10" pubdate>六 04 十月 2014</time></p>
+</header>
+
+  <div class="entry-content"><div class="highlight"><pre><span class="cp">#ifndef _OPENCV_H_</span>
+<span class="cp">#define _OPENCV_H_</span>
+
+<span class="cp">#include &lt;opencv2/opencv.hpp&gt;</span>
+<span class="cp">#ifdef _WIN32</span>
+<span class="cp">#ifdef _DEBUG</span>
+<span class="c1">//Debug   mode</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_core231d.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_highgui231d.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_imgproc231d.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_video231d.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_ml231d.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_legacy231d.lib&quot;)</span>
+<span class="cp">#else</span>
+<span class="c1">//Release   mode</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_core231.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_highgui231.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_imgproc231.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_video231.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_ml231.lib&quot;)</span>
+<span class="cp">#pragma comment(lib,&quot;opencv_legacy231.lib&quot;)</span>
+<span class="cp">#endif</span>
+<span class="cp">#else</span>
+<span class="c1">// other</span>
+<span class="cp">#endif</span>
+
+<span class="n">template</span><span class="o">&lt;</span><span class="n">class</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">class</span> <span class="n">Image</span> <span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">IplImage</span><span class="o">*</span> <span class="n">imgp</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">Image</span><span class="p">(</span><span class="n">IplImage</span><span class="o">*</span> <span class="n">img</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">imgp</span> <span class="o">=</span> <span class="n">img</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="o">~</span><span class="n">Image</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">imgp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kt">void</span> <span class="n">operator</span><span class="o">=</span><span class="p">(</span><span class="n">IplImage</span><span class="o">*</span> <span class="n">img</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">imgp</span> <span class="o">=</span> <span class="n">img</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kr">inline</span> <span class="n">T</span><span class="o">*</span> <span class="n">operator</span><span class="p">[](</span><span class="k">const</span> <span class="kt">int</span> <span class="n">rowIndx</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">((</span><span class="n">T</span><span class="o">*</span><span class="p">)(</span><span class="n">imgp</span><span class="o">-&gt;</span><span class="n">imageData</span> <span class="o">+</span> <span class="n">rowIndx</span> <span class="o">*</span> <span class="n">imgp</span><span class="o">-&gt;</span><span class="n">widthStep</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">RgbPixel</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">RgbPixelFloat</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">RgbPixelDouble</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="n">Image</span><span class="o">&lt;</span><span class="n">RgbPixel</span><span class="o">&gt;</span>       <span class="n">RgbImage</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">Image</span><span class="o">&lt;</span><span class="n">RgbPixelFloat</span><span class="o">&gt;</span>  <span class="n">RgbImageFloat</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">Image</span><span class="o">&lt;</span><span class="n">RgbPixelDouble</span><span class="o">&gt;</span> <span class="n">RgbImageDouble</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">Image</span><span class="o">&lt;</span><span class="kt">unsigned</span> <span class="kt">char</span><span class="o">&gt;</span>  <span class="n">BwImage</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">Image</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span>            <span class="n">BwImageInt</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">Image</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span>          <span class="n">BwImageFloat</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">Image</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span>         <span class="n">BwImageDouble</span><span class="p">;</span>
+<span class="cp">#endif</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span class="cp">#include &quot;opencv.h&quot;</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">cv</span><span class="p">;</span>
+<span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">FileName</span> <span class="o">=</span> <span class="s">&quot;lena.jpg&quot;</span><span class="p">;</span>
+    <span class="n">IplImage</span><span class="o">*</span> <span class="n">Orig_Image</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>  
+    <span class="n">IplImage</span><span class="o">*</span> <span class="n">Modify_Image</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span> 
+
+    <span class="n">Orig_Image</span> <span class="o">=</span> <span class="n">cvLoadImage</span><span class="p">(</span><span class="n">FileName</span><span class="p">,</span> <span class="n">CV_LOAD_IMAGE_COLOR</span><span class="p">);</span>
+
+    <span class="n">Modify_Image</span> <span class="o">=</span>  <span class="n">cvCreateImage</span><span class="p">(</span><span class="n">cvGetSize</span><span class="p">(</span><span class="n">Orig_Image</span><span class="p">),</span> <span class="n">IPL_DEPTH_8U</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">Orig_Image</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&quot;Can not load image %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">FileName</span><span class="p">);</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">cvShowImage</span><span class="p">(</span><span class="s">&quot;Show Orig_Image&quot;</span><span class="p">,</span> <span class="n">Orig_Image</span><span class="p">);</span>
+
+    <span class="n">Modify_Image</span> <span class="o">=</span> <span class="n">cvCloneImage</span><span class="p">(</span><span class="n">Orig_Image</span><span class="p">);</span>
+    <span class="n">RgbImage</span> <span class="n">BlockA</span><span class="p">(</span><span class="n">Modify_Image</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;width=%d, height=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">Orig_Image</span><span class="o">-&gt;</span><span class="n">width</span><span class="p">,</span> <span class="n">Orig_Image</span><span class="o">-&gt;</span><span class="n">height</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">BlockA</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">].</span><span class="n">r</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+            <span class="n">BlockA</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">].</span><span class="n">g</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+            <span class="n">BlockA</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">].</span><span class="n">b</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">cvShowImage</span><span class="p">(</span><span class="s">&quot;Show Modify_Image&quot;</span><span class="p">,</span> <span class="n">Modify_Image</span><span class="p">);</span>
+    <span class="n">waitKey</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">Jason</span>
+  </span>
+<time datetime="2014-10-04T18:58:10" pubdate>六 04 十月 2014</time>  <span class="categories">
+    <a class="category" href="./tag/opencv.html">opencv</a>
+  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+</div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./opencv-du-xie-tu-dang-ji-ben-cao-zuo.html">Opencv 讀寫圖檔基本操作</a>
+      </li>
+      <li class="post">
+          <a href="./han-shu-wu-can-shu-bi-xu-xuan-gao-wei-void.html">函數無參數, 必須宣告為 void</a>
+      </li>
+      <li class="post">
+          <a href="./github-duo-ge-zhang-hao-ssh-key.html">github 多個帳號ssh key</a>
+      </li>
+      <li class="post">
+          <a href="./zi-liao-chuan-shu-su-lu-ji-suan.html">資料傳輸速率計算</a>
+      </li>
+      <li class="post">
+          <a href="./an-zhuang-opencv-249.html">安裝 OpenCV 2.4.9</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="./category/c.html">C</a></li>
+        <li><a href="./category/github.html">github</a></li>
+        <li><a href="./category/opencv.html">opencv</a></li>
+        <li><a href="./category/pelican.html">Pelican</a></li>
+        <li><a href="./category/protocol.html">protocol</a></li>
+        <li><a href="./category/python.html">Python</a></li>
+        <li><a href="./category/sed.html">sed</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/c.html">C</a>,    <a href="./tag/github.html">github</a>,    <a href="./tag/protocol.html">protocol</a>,    <a href="./tag/python.html">python</a>,    <a href="./tag/opencv.html">opencv</a>,    <a href="./tag/sed.html">sed</a>  </section>
+
+
+    <section>
+        <h1>Social</h1>
+        <ul>
+            <li><a href="#" target="_blank">You can add links in your config file</a></li>
+            <li><a href="#" target="_blank">Another social link</a></li>
+        </ul>
+    </section>
+    <section>
+        <h1>Blogroll</h1>
+        <ul>
+            <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+            <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+            <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+            <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+    </section>
+
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Jason -
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+</body>
+</html>
