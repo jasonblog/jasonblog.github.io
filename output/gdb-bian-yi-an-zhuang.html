@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>使用Pelican建立Blog</title>
+  <title>GDB 編譯＆安裝</title>
   <meta name="author" content="Jason">
 
 
@@ -40,7 +40,7 @@
     <li >
     <a href="./category/c.html">C</a>
     </li>
-    <li >
+    <li class="active">
     <a href="./category/gdb.html">Gdb</a>
     </li>
     <li >
@@ -49,7 +49,7 @@
     <li >
     <a href="./category/opencv.html">Opencv</a>
     </li>
-    <li class="active">
+    <li >
     <a href="./category/pelican.html">Pelican</a>
     </li>
     <li >
@@ -73,126 +73,45 @@
 <div>
   <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">使用Pelican建立Blog</h1>
-      <p class="meta"><time datetime="2014-09-26T19:28:04" pubdate>五 26 九月 2014</time></p>
+      <h1 class="entry-title">GDB 編譯＆安裝</h1>
+      <p class="meta"><time datetime="2014-11-30T19:08:34" pubdate>日 30 十一月 2014</time></p>
 </header>
 
-  <div class="entry-content"><p>1.1 安裝Pelican</p>
-<div class="highlight"><pre>pip install virtualenv
-virtualenv pelican_env
-<span class="nb">source </span>pelican_env/bin/activate
+  <div class="entry-content"><div class="highlight"><pre><span class="nl">ftp:</span><span class="c1">//sourceware.org/pub/gdb/releases/</span>
+<span class="n">tar</span> <span class="n">xfv</span> <span class="n">gdb</span><span class="o">-</span><span class="mf">7.8.1</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">gdb</span><span class="o">-</span><span class="mf">7.8.1</span>
+<span class="p">.</span><span class="o">/</span><span class="n">configure</span>
+<span class="n">make</span> <span class="o">-</span><span class="n">j8</span>
+<span class="n">sudo</span> <span class="n">ake</span> <span class="n">install</span>
 </pre></div>
 
 
-<p>安裝pelican工具</p>
-<div class="highlight"><pre>pip install pelican markdown ghp-import
-</pre></div>
+<div class="highlight"><pre><span class="n">gdb</span> <span class="err">會出現</span>  <span class="sc">&#39;g&#39;</span> <span class="n">packet</span> <span class="n">reply</span> <span class="n">is</span> <span class="n">too</span> <span class="kt">long</span><span class="o">:</span>
 
+<span class="cp">###修改gdb/remote.c文件，屏蔽process_g_packet函数中的下列两行：</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">buf_len</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rsa</span><span class="o">-&gt;</span><span class="n">sizeof_g_packet</span><span class="p">)</span>
+    <span class="n">error</span> <span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="err">“</span><span class="n">Remote</span> <span class="err">‘</span><span class="n">g</span><span class="err">’</span> <span class="n">packet</span> <span class="n">reply</span> <span class="n">is</span> <span class="n">too</span> <span class="kt">long</span><span class="o">:</span> <span class="o">%</span><span class="n">s</span><span class="err">”</span><span class="p">),</span> <span class="n">rs</span><span class="o">-&gt;</span><span class="n">buf</span><span class="p">);</span>
+<span class="err">在其后添加：</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">buf_len</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rsa</span><span class="o">-&gt;</span><span class="n">sizeof_g_packet</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">rsa</span><span class="o">-&gt;</span><span class="n">sizeof_g_packet</span> <span class="o">=</span> <span class="n">buf_len</span> <span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gdbarch_num_regs</span> <span class="p">(</span><span class="n">gdbarch</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">rsa</span><span class="o">-&gt;</span><span class="n">regs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">pnum</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+         <span class="k">continue</span><span class="p">;</span>
 
-<p>1.2 建立 Github Page
-* 在Github上創建一個倉庫，倉庫名是用戶名.github.io，注意這裡的用戶名是自己的用戶名</p>
-<ul>
-<li>建立好後，clone 到 local</li>
-</ul>
-<div class="highlight"><pre>git clone https://github.com/xxxx/xxx.github.io
-<span class="nb">cd </span>xxx.github.io
-</pre></div>
-
-
-<p>2.1 建立 Pelican Blog
-建立 source branch</p>
-<div class="highlight"><pre>git checkout -b <span class="nb">source</span>
-</pre></div>
-
-
-<p>建立 Pelican</p>
-<div class="highlight"><pre>pelican-quickstart
-</pre></div>
-
-
-<p>建立的過程中，會問你一些問題，你可以參考下面的回答。</p>
-<div class="highlight"><pre>&gt; Where <span class="k">do </span>you want to create your new web site? <span class="o">[</span>.<span class="o">]</span> 
-&gt; What will be the title of this web site? Buttermilch
-&gt; Who will be the author of this web site? Tony Stark
-&gt; What will be the default language of this web site? <span class="o">[</span>en<span class="o">]</span> 
-&gt; Do you want to specify a URL prefix? e.g., http://example.com   <span class="o">(</span>Y/n<span class="o">)</span> n
-&gt; Do you want to <span class="nb">enable </span>article pagination? <span class="o">(</span>Y/n<span class="o">)</span> 
-&gt; How many articles per page <span class="k">do </span>you want? <span class="o">[</span>10<span class="o">]</span> 
-&gt; Do you want to generate a Fabfile/Makefile ... and publishing? <span class="o">(</span>Y/n<span class="o">)</span> 
-&gt; Do you want an auto-reload &amp; simpleHTTP ... and site development? <span class="o">(</span>Y/n<span class="o">)</span> 
-&gt; Do you want to upload your website using FTP? <span class="o">(</span>y/N<span class="o">)</span> 
-&gt; Do you want to upload your website using SSH? <span class="o">(</span>y/N<span class="o">)</span> 
-&gt; Do you want to upload your website using Dropbox? <span class="o">(</span>y/N<span class="o">)</span> 
-&gt; Do you want to upload your website using S3? <span class="o">(</span>y/N<span class="o">)</span> 
-&gt; Do you want to upload your website using Rackspace Cloud Files? <span class="o">(</span>y/N<span class="o">)</span>
-</pre></div>
-
-
-<p>2.1.1 安裝 theme 跟 plugins</p>
-<div class="highlight"><pre>git clone https://github.com/jakevdp/pelican-octopress-theme.git
-git clone https://github.com/getpelican/pelican-plugins.git
-</pre></div>
-
-
-<p>將 pelicanconf.py 檔案裡的 THEME 跟 PLUGIN_PATH 修改成你放置 pelican-octopress-theme 跟 pelican-plugins 的路徑：</p>
-<div class="highlight"><pre>import os ＃ 新增
-<span class="nv">path</span> <span class="o">=</span> os.path.join<span class="o">(</span>os.environ.get<span class="o">(</span><span class="s1">&#39;HOME&#39;</span><span class="o">)</span>, <span class="s1">&#39;pelican&#39;</span><span class="o">)</span>
-<span class="nv">THEME</span> <span class="o">=</span> <span class="s1">&#39;%s/pelican-octopress-theme&#39;</span> % path
-<span class="nv">PLUGIN_PATH</span> <span class="o">=</span> <span class="s1">&#39;%s/pelican-plugins&#39;</span> % path
-</pre></div>
-
-
-<p>2.2 建立Markdown文章</p>
-<div class="highlight"><pre>Title: 你好，世界！
-Date: 2014-09-26 16:08
-Category: Python
-Tags: python
-Author: Jason
-Summary: 你好，世界！
-你好，世界，世界，你好。
-</pre></div>
-
-
-<p>2.3 Local test
-編寫好了之後，就可以在本地進行測試了。</p>
-<div class="highlight"><pre>pelican content -s pelicanconf.py --ignore-cache
-<span class="nb">cd </span>output
-python -m SimpleHTTPServer 1111
-</pre></div>
-
-
-<p>2.4 提交更改</p>
-<div class="highlight"><pre>git add .
-git commit -m <span class="s2">&quot;initial commit&quot;</span>
-</pre></div>
-
-
-<p>2.5 發佈</p>
-<div class="highlight"><pre>git branch gh-pages
-ghp-import output
-git checkout master
-git merge gh-pages
-git push --all
-</pre></div>
-
-
-<p>2.6 之後修改文章只需下面步驟即可</p>
-<div class="highlight"><pre>git checkout <span class="nb">source</span>
-新增修改文章
-git add .
-git commit -m <span class="s2">&quot;update&quot;</span>
-ghp-import output
-git checkout master
-git merge gh-pages
-git push --all
+         <span class="k">if</span> <span class="p">(</span><span class="n">rsa</span><span class="o">-&gt;</span><span class="n">regs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">offset</span> <span class="o">&gt;=</span> <span class="n">rsa</span><span class="o">-&gt;</span><span class="n">sizeof_g_packet</span><span class="p">)</span>
+         <span class="n">rsa</span><span class="o">-&gt;</span><span class="n">regs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">in_g_packet</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+         <span class="k">else</span>
+         <span class="n">rsa</span><span class="o">-&gt;</span><span class="n">regs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">in_g_packet</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+<span class="p">}</span>
 </pre></div></div>
     <footer>
 <p class="meta">
   <span class="byline author vcard">
     Posted by <span class="fn">Jason</span>
   </span>
-<time datetime="2014-09-26T19:28:04" pubdate>五 26 九月 2014</time>  <span class="categories">
-    <a class="category" href="./tag/pelican.html">Pelican</a>
+<time datetime="2014-11-30T19:08:34" pubdate>日 30 十一月 2014</time>  <span class="categories">
+    <a class="category" href="./tag/gdb.html">gdb</a>
   </span>
 </p><div class="sharing">
 </div>    </footer>
